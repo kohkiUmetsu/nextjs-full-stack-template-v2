@@ -1,0 +1,127 @@
+---
+description: 
+globs: */page.tsx
+alwaysApply: false
+---
+---Add commentMore actions
+description: 
+globs: */page.tsx
+alwaysApply: false
+---
+# Next.js App Router Page Rules (app/*/page.tsx)
+
+このルールは `app` ディレクトリ内の `page.tsx` ファイルに適用されます。
+
+## インポート規則
+
+### 必須: コンポーネントの参照
+- 再利用可能なコンポーネントは必ず [components](mdc:components) フォルダから参照すること
+- インポート例: `import { Button } from '@/components/button';`
+- UIコンポーネントの直接定義ではなく、componentsフォルダからの再利用を優先する
+
+### 必須: 型定義の参照  
+- TypeScript型定義は必ず [types](mdc:types) フォルダから参照すること
+- インポート例: `import type { Example } from '@/types/example';`
+- ページ内で複雑な型を定義せず、typesフォルダで管理する
+
+### パスエイリアス
+- 絶対パスインポートには `@/` エイリアスを使用する（[tsconfig.json](mdc:tsconfig.json) で設定済み）
+- 相対パス（`../`、`./`）の使用は避ける
+
+## ページコンポーネント実装規則
+
+### Next.js App Router準拠
+- デフォルトエクスポートを使用: `export default function PageName() {}`
+- ページ名はPascalCaseで、かつPage接尾辞を付ける: `HomePage`、`LoginPage`
+
+### Client/Server コンポーネント
+- クライアントサイド機能が必要な場合のみ `'use client';` を使用
+- 可能な限りServer Componentとして実装する
+- 認証が必要なページは Server Component で実装し、[createClient](mdc:utils/supabase/server.ts) を使用
+
+### 技術スタック活用
+- データ取得には [tRPC](mdc:trpc) を優先的に使用
+- 認証には [Supabase](mdc:utils/supabase) を使用
+- スタイリングには [TailwindCSS](mdc:tailwind.config.js) を使用
+
+## コード品質規則
+
+### エラーハンドリング
+- 必ずエラーハンドリングを実装する
+- ローディング状態を適切に表示する
+- エラーメッセージは日本語で表示する
+
+### アクセシビリティ
+- semantic HTMLを使用する
+- 適切なaria属性を設定する
+- キーボードナビゲーションを考慮する
+
+### パフォーマンス
+- 不要な再レンダリングを避ける
+- 適切なReact Hooksを使用する
+- [next/image](mdc:next/image) を画像表示に使用する
+
+## 実装例
+
+### 基本的なServer Component ページ
+```typescript
+import { Example } from '@/types/example';
+import { ExampleList } from '@/components/example-list';
+
+export default async function ExamplePage() {
+  // サーバーサイドでのデータ取得
+  const examples: Example[] = await getExamples();
+  
+  return (
+    <main className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">例一覧</h1>
+      <ExampleList examples={examples} />
+    </main>
+  );
+}
+```
+### Client Component ページ（必要時のみ）
+```typescript
+'use client';
+
+import { useState } from 'react';
+import { api } from '@/trpc/client';
+import { Example } from '@/types/example';
+import { Button } from '@/components/button';
+
+export default function InteractiveExamplePage() {
+  const [selectedId, setSelectedId] = useState<string>('');
+  const { data, isLoading, error } = api.example.getAllExamples.useQuery();
+
+  if (isLoading) return <p>読み込み中...</p>;
+  if (error) return <p className="text-red-500">エラー: {error.message}</p>;
+
+  return (
+    <main className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">インタラクティブな例</h1>
+      <Button onClick={() => setSelectedId('')}>
+        リセット
+      </Button>
+    </main>
+  );
+}
+```
+
+## 禁止事項
+
+- ページコンポーネント内で複雑なUIコンポーネントを直接定義しない
+- 型定義をページファイル内で行わない
+- 相対パスでのインポートを使用しない
+- Server ComponentでuseState等のクライアントサイドHooksを使用しない
+
+## 必須チェックリスト
+
+実装前に以下を確認すること：
+
+- [ ] コンポーネントは`@/components`から適切にインポートされているか
+- [ ] 型定義は`@/types`から適切にインポートされているか  
+- [ ] パスエイリアス`@/`を使用しているか
+- [ ] Server/Client Componentの使い分けが適切か
+- [ ] エラーハンドリングが実装されているか
+- [ ] アクセシビリティが考慮されているか
+- [ ] 日本語でのエラーメッセージが設定されているか

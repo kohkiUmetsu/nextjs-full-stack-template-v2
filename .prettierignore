@@ -1,0 +1,19 @@
+# ビルド出力
+.next
+out
+build
+dist
+
+# 依存関係
+node_modules
+package-lock.json
+
+# その他
+.git
+.husky
+.github
+.vscode
+public
+*.log
+.DS_Store
+coverage 
