@@ -137,7 +137,7 @@ export default function UpdatePasswordPage() {
   // トークンが読み込まれる前の表示
   if (!tokensLoaded) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50">
+      <div className="flex min-h-screen flex-col items-center justify-center">
         <div className="w-full max-w-md rounded-2xl border border-figure-color bg-white p-8 shadow-sm">
           <h1 className="mb-6 text-center text-2xl font-bold">パスワード更新</h1>
           <div className="text-center">
@@ -151,7 +151,7 @@ export default function UpdatePasswordPage() {
   // セッションが確立されていない場合の表示
   if (!isSessionReady) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50">
+      <div className="flex min-h-screen flex-col items-center justify-center">
         <div className="w-full max-w-md rounded-2xl border border-figure-color bg-white p-8 shadow-sm">
           <h1 className="mb-6 text-center text-2xl font-bold">パスワード更新</h1>
           <div className="mb-4 rounded-md border border-red-300 bg-red-50 p-3">
@@ -173,7 +173,7 @@ export default function UpdatePasswordPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50">
+    <div className="flex min-h-screen flex-col items-center justify-center">
       <div className="w-full max-w-md rounded-2xl border border-figure-color bg-white p-8 shadow-sm">
         <h1 className="mb-6 text-center text-2xl font-bold">パスワード更新</h1>
 

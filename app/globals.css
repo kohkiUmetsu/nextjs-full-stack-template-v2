@@ -4,19 +4,13 @@
 /* @custom-variant dark (&:is(.dark *)); */
 
 @theme {
-  --color-primary-color: #ffffff;
-  --color-secondary-color: #e88fad;
-  --color-layer-color: #eeeeee;
-  --color-figure-color: #737373;
-  --color-background-color: #f8f8f8;
-  --color-image-holder-color: #cfcfcf;
-  --color-text-black-color: #000000;
-
-  /* 施設タイプ別色定義 */
-  --color-facility-type-accommodation: #e88fad;
-  --color-facility-type-daycare: #9dbc63;
-  --color-facility-type-visiting: #4f4ec6;
-  --color-facility-type-outpatient: #a68a74;
+  --color-primary-color: #3b82f6;
+  --color-secondary-color: #64748b;
+  --color-layer-color: #f1f5f9;
+  --color-figure-color: #6b7280;
+  --color-background-color: #ffffff;
+  --color-image-holder-color: #d1d5db;
+  --color-text-black-color: #1f2937;
 }
 
 :root {

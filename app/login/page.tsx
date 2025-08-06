@@ -15,7 +15,7 @@ import { LoginFormData, loginSchema } from '@/types/auth';
 // ローディングコンポーネント
 function LoginLoading() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50">
+    <div className="flex min-h-screen flex-col items-center justify-center">
       <div className="w-full max-w-md rounded-2xl border border-figure-color bg-white p-8 shadow-sm">
         <h1 className="mb-6 text-center text-2xl font-bold">ログイン</h1>
         <div className="space-y-6">
@@ -132,7 +132,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50">
+    <div className="flex min-h-screen flex-col items-center justify-center">
       <div className="w-full max-w-md rounded-2xl border border-figure-color bg-white p-8 shadow-sm">
         <h1 className="mb-6 text-center text-2xl font-bold">ログイン</h1>
         {errorMessage && (
